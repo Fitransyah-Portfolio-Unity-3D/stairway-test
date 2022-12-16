@@ -15,7 +15,13 @@ public class Fishing : MonoBehaviour
     [SerializeField] GameObject fishingStick;
     [SerializeField] GameObject sliderSystem;
     [SerializeField] MashButton mashButton;
+    [SerializeField] GameObject fishPrefab;
+
     [SerializeField] AudioSource reelInSound;
+    [SerializeField] AudioSource fishingResultSound;
+    [SerializeField] AudioClip succesFishingSound;
+    [SerializeField] AudioClip failedFishingSound;
+
 
     [SerializeField] GameMode currentGameMode;
 
@@ -130,6 +136,8 @@ public class Fishing : MonoBehaviour
 
     private void FishingSuccess()
     {
+        fishingResultSound.PlayOneShot(succesFishingSound, 0.4f);
+        fishPrefab.SetActive(true);
         animator.Play("Victory");
         currentGameMode = GameMode.NotFishing;
 
@@ -141,6 +149,7 @@ public class Fishing : MonoBehaviour
 
     private void FishingFailed()
     {
+        fishingResultSound.PlayOneShot(failedFishingSound, 0.4f); ;
         animator.Play("Defeat");
         currentGameMode = GameMode.NotFishing;
 
@@ -158,5 +167,10 @@ public class Fishing : MonoBehaviour
         {
             OnFishingEvent("FishingCancel");
         }
+    }
+
+    public void DisableTheFishPrefab()
+    {
+        fishPrefab.SetActive(false);
     }
 }
