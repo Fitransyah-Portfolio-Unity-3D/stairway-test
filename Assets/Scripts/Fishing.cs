@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,9 @@ public class Fishing : MonoBehaviour
 
     [SerializeField] float bitingTime = 7f;
     [SerializeField] bool isFishing;
+
+    public event Action OnFishingCancelled;
+    public event Action<string> OnFishingEvent;
 
     private void Start()
     {
@@ -49,11 +53,22 @@ public class Fishing : MonoBehaviour
             currentGameMode = GameMode.Fishing;
             bitingTime = 7f;
             isFishing = true;
+
+            if (OnFishingEvent != null)
+            {
+                OnFishingEvent("FishingStart");
+            }
+
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && currentGameMode == GameMode.Fishing)
         {
             currentGameMode = GameMode.NotFishing;
             isFishing = false;
+
+            if (OnFishingEvent != null)
+            {
+                OnFishingEvent("FishingCancel");
+            }
         }
 
         RunGameMode(currentGameMode);
@@ -69,6 +84,11 @@ public class Fishing : MonoBehaviour
             {
                 sliderSystem.SetActive(true);
                 animator.SetBool("Reeling", true);
+
+                if (OnFishingEvent != null)
+                {
+                    OnFishingEvent("FishingBites");
+                }
             }
         }
     }
@@ -94,6 +114,11 @@ public class Fishing : MonoBehaviour
         animator.SetBool("Fishing", false);
         animator.SetBool("Reeling", false);
         currentGameMode = GameMode.NotFishing;
+
+        if (OnFishingEvent != null)
+        {
+            OnFishingEvent("FishingWin");
+        }
     }
 
     private void FishingFailed()
@@ -102,10 +127,20 @@ public class Fishing : MonoBehaviour
         animator.SetBool("Fishing", false);
         animator.SetBool("Reeling", false);
         currentGameMode = GameMode.NotFishing;
+
+        if (OnFishingEvent != null)
+        {
+            OnFishingEvent("FishingLost");
+        }
     }
 
     public void ResetFishingState()
     {
         isFishing = false;
+
+        if (OnFishingEvent != null)
+        {
+            OnFishingEvent("FishingCancel");
+        }
     }
 }

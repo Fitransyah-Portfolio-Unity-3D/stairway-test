@@ -18,6 +18,7 @@ public class MashButton : MonoBehaviour
     public event Action OnFishingSucces;
     public event Action OnFishingFailed;
 
+
     private void Start()
     {
         sliderEndValue = 10f;
@@ -56,6 +57,8 @@ public class MashButton : MonoBehaviour
             {
                 OnFishingFailed();
             }
+
+
         }
     }
 }
