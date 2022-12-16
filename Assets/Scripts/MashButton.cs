@@ -35,7 +35,7 @@ public class MashButton : MonoBehaviour
 
            if (sliderMain.value >= 9.2f)
             {
-                Debug.Log("Fish got");
+                Debug.Log("Got Fish,yeay!");
 
                 if (OnFishingSucces != null)
                 {
@@ -50,7 +50,7 @@ public class MashButton : MonoBehaviour
 
         if (sliderMain.value <= 0f)
         {
-            Debug.Log("Fish Lost");
+            Debug.Log("Fish Lost :(");
 
             if (OnFishingFailed != null)
             {

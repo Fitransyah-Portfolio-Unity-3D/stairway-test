@@ -71,7 +71,6 @@ public class Fishing : MonoBehaviour
                 animator.SetBool("Reeling", true);
             }
         }
-
     }
 
     private void RunGameMode(GameMode newGameMode)
