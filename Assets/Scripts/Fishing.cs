@@ -17,9 +17,9 @@ public class Fishing : MonoBehaviour
 
     [SerializeField] GameMode currentGameMode;
 
-    float bitingTime = 7f;
+    [SerializeField] float bitingTime = 7f;
+    [SerializeField] bool isFishing;
 
-    [SerializeField] bool isFishBiting;
     private void Start()
     {
         currentGameMode = GameMode.NotFishing;
@@ -44,27 +44,31 @@ public class Fishing : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && currentGameMode == GameMode.NotFishing)
+        if (Input.GetMouseButtonDown(0) && currentGameMode == GameMode.NotFishing && !isFishing)
         {
-            currentGameMode = GameMode.Fishing; 
+            currentGameMode = GameMode.Fishing;
+            bitingTime = 7f;
+            isFishing = true;
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && currentGameMode == GameMode.Fishing)
+        else if (Input.GetKeyDown(KeyCode.Escape) && currentGameMode == GameMode.Fishing)
         {
             currentGameMode = GameMode.NotFishing;
+            isFishing = false;
         }
 
         RunGameMode(currentGameMode);
 
         if (currentGameMode == GameMode.Fishing)
         {
-            bitingTime -= Time.deltaTime;
-
+            if (bitingTime > 0)
+            {
+                bitingTime -= Time.deltaTime;
+            }
+            
             if (bitingTime <= 0)
             {
-                isFishBiting = true;
                 sliderSystem.SetActive(true);
                 animator.SetBool("Reeling", true);
-                bitingTime = 7f;
             }
         }
 
@@ -87,13 +91,22 @@ public class Fishing : MonoBehaviour
 
     private void FishingSuccess()
     {
+        animator.Play("Victory");
+        animator.SetBool("Fishing", false);
         animator.SetBool("Reeling", false);
         currentGameMode = GameMode.NotFishing;
     }
 
     private void FishingFailed()
     {
+        animator.Play("Defeat");
+        animator.SetBool("Fishing", false);
         animator.SetBool("Reeling", false);
         currentGameMode = GameMode.NotFishing;
+    }
+
+    public void ResetFishingState()
+    {
+        isFishing = false;
     }
 }
