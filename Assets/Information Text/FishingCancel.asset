@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c98dd2be8c11bf446936fc73c5d672d2, type: 3}
   m_Name: FishingCancel
   m_EditorClassIdentifier: 
-  message: Try to fish by clicking left mouse button.
+  message: 'Try to fish by clicking left mouse button.
+
+
+    Press ESC to quit the
+    game.'

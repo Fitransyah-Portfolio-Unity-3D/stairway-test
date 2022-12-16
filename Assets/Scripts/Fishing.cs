@@ -60,7 +60,7 @@ public class Fishing : MonoBehaviour
             }
 
         }
-        else if (Input.GetKeyDown(KeyCode.Escape) && currentGameMode == GameMode.Fishing)
+        else if (Input.GetMouseButtonDown(1) && currentGameMode == GameMode.Fishing)
         {
             currentGameMode = GameMode.NotFishing;
             isFishing = false;
@@ -90,6 +90,12 @@ public class Fishing : MonoBehaviour
                     OnFishingEvent("FishingBites");
                 }
             }
+        }
+
+        // Quit the game
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
         }
     }
 

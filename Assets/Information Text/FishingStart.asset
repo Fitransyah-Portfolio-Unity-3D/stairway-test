@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c98dd2be8c11bf446936fc73c5d672d2, type: 3}
   m_Name: FishingStart
   m_EditorClassIdentifier: 
-  message: Fishing mode is starting, wait untill the fish eat your bait.
+  message: Fishing mode is starting, wait untill the fish eat your bait. You can
+    cancel fishing mode by clicking right mouse button.
