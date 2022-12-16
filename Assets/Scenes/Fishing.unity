@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sliderSystem: {fileID: 1975960492}
-  mashButton: {fileID: 0}
+  mashButton: {fileID: 1975960496}
 --- !u!1 &423453039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1629,6 +1629,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5173291046585526756, guid: 385fb490f37aeeb4a922057d4ed7b8ae, type: 3}
   m_PrefabInstance: {fileID: 997511200}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1975960496 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5173291046585526767, guid: 385fb490f37aeeb4a922057d4ed7b8ae, type: 3}
+  m_PrefabInstance: {fileID: 997511200}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975960492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5338b31c3ad162c4c9892eac293b9a36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &543450653063325681 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7172347401995610563, guid: 718024ba861c3074b93fd0f2920af640, type: 3}
@@ -2185,6 +2196,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7206870509199920687, guid: 718024ba861c3074b93fd0f2920af640, type: 3}
+      propertyPath: mashButton
+      value: 
+      objectReference: {fileID: 1975960496}
     - target: {fileID: 7206870509199920687, guid: 718024ba861c3074b93fd0f2920af640, type: 3}
       propertyPath: fishingStick
       value: 

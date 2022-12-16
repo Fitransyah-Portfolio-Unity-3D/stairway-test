@@ -87,11 +87,13 @@ public class Fishing : MonoBehaviour
 
     private void FishingSuccess()
     {
-
+        animator.SetBool("Reeling", false);
+        currentGameMode = GameMode.NotFishing;
     }
 
     private void FishingFailed()
     {
-
+        animator.SetBool("Reeling", false);
+        currentGameMode = GameMode.NotFishing;
     }
 }

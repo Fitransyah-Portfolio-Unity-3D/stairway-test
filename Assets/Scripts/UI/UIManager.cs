@@ -24,6 +24,6 @@ public class UIManager : MonoBehaviour
     }
     private void HideSliderSystem()
     {
-        sliderSystem?.SetActive(false);
+        sliderSystem.SetActive(false);
     }
 }
