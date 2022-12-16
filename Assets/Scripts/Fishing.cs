@@ -15,6 +15,7 @@ public class Fishing : MonoBehaviour
     [SerializeField] GameObject fishingStick;
     [SerializeField] GameObject sliderSystem;
     [SerializeField] MashButton mashButton;
+    [SerializeField] AudioSource reelInSound;
 
     [SerializeField] GameMode currentGameMode;
 
@@ -48,6 +49,10 @@ public class Fishing : MonoBehaviour
 
     private void Update()
     {
+        // Game State 
+        RunGameMode(currentGameMode);
+
+        // Player start fishing
         if (Input.GetMouseButtonDown(0) && currentGameMode == GameMode.NotFishing && !isFishing)
         {
             currentGameMode = GameMode.Fishing;
@@ -60,19 +65,24 @@ public class Fishing : MonoBehaviour
             }
 
         }
+        // Player cancel fishing
         else if (Input.GetMouseButtonDown(1) && currentGameMode == GameMode.Fishing)
         {
             currentGameMode = GameMode.NotFishing;
             isFishing = false;
+
+            if (OnFishingCancelled != null)
+            {
+                OnFishingCancelled();
+            }
+
 
             if (OnFishingEvent != null)
             {
                 OnFishingEvent("FishingCancel");
             }
         }
-
-        RunGameMode(currentGameMode);
-
+        // Fish eating the bait
         if (currentGameMode == GameMode.Fishing)
         {
             if (bitingTime > 0)
@@ -82,9 +92,10 @@ public class Fishing : MonoBehaviour
             
             if (bitingTime <= 0)
             {
+                reelInSound.Play();
                 sliderSystem.SetActive(true);
                 animator.SetBool("Reeling", true);
-
+                
                 if (OnFishingEvent != null)
                 {
                     OnFishingEvent("FishingBites");
@@ -108,7 +119,10 @@ public class Fishing : MonoBehaviour
                 fishingStick.SetActive(true);
                 break;
                 case GameMode.NotFishing:
+                isFishing = false;
+                reelInSound.Stop();
                 animator.SetBool("Fishing", false);
+                animator.SetBool("Reeling", false);
                 fishingStick.SetActive(false);
                 break;
         }
@@ -117,8 +131,6 @@ public class Fishing : MonoBehaviour
     private void FishingSuccess()
     {
         animator.Play("Victory");
-        animator.SetBool("Fishing", false);
-        animator.SetBool("Reeling", false);
         currentGameMode = GameMode.NotFishing;
 
         if (OnFishingEvent != null)
@@ -130,8 +142,6 @@ public class Fishing : MonoBehaviour
     private void FishingFailed()
     {
         animator.Play("Defeat");
-        animator.SetBool("Fishing", false);
-        animator.SetBool("Reeling", false);
         currentGameMode = GameMode.NotFishing;
 
         if (OnFishingEvent != null)

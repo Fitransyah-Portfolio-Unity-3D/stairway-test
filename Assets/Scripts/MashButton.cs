@@ -10,14 +10,13 @@ public class MashButton : MonoBehaviour
     [SerializeField] Gradient sliderGradientColor;
     [SerializeField] Image sliderFill;
 
-    public float sliderStartingValue = 5f;
+    public float sliderStartingValue;
     public float sliderEndValue;
     public float sliderMinValue;
 
 
     public event Action OnFishingSucces;
     public event Action OnFishingFailed;
-
 
     private void Start()
     {
@@ -29,14 +28,16 @@ public class MashButton : MonoBehaviour
 
     private void Update()
     {
-        sliderStartingValue = Mathf.MoveTowards(sliderStartingValue, sliderMinValue, 2f * Time.deltaTime);
+        sliderStartingValue = Mathf.MoveTowards(sliderStartingValue, sliderMinValue, 1.8f * Time.deltaTime);
         if (Input.GetKeyDown(KeyCode.E))
         {
-            sliderStartingValue = Mathf.MoveTowards(sliderStartingValue, sliderEndValue, 86f * Time.deltaTime);
+            sliderStartingValue = Mathf.MoveTowards(sliderStartingValue, sliderEndValue, 80f * Time.deltaTime);
 
-           if (sliderMain.value >= 9.2f)
+           if (sliderMain.value >= 9.7f)
             {
                 Debug.Log("Got Fish,yeay!");
+
+                sliderStartingValue = 4f;
 
                 if (OnFishingSucces != null)
                 {
@@ -52,6 +53,8 @@ public class MashButton : MonoBehaviour
         if (sliderMain.value <= 0f)
         {
             Debug.Log("Fish Lost :(");
+
+            sliderStartingValue = 4f;
 
             if (OnFishingFailed != null)
             {
